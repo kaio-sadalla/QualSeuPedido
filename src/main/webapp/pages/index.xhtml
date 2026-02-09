@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Página Inicial</ui:define>
+
+    <ui:define name="corpo">
+        <div class="wrapper">
+            <h1>Bem-vindo ao SeuChef</h1>
+            <article>
+                <p>A <b>maior plataforma</b> para quem quer contratar um chefe particular 5 estrelas</p>
+                <p>Mais de <b>10000</b> clientes cadastrados.</p>
+                <p>Mais de <b>10000</b> chefs a escolha.</p>
+                <p>Explore opções de prato para sua cerimônia com especialistas!</p>
+            </article>
+            <button>Divulgar serviços de chef</button>
+            <button>Cadastrar como cliente</button>
+            <p:carousel value="#{chefBean.destaques}" var="chef" numVisible="3" circular="true">
+                <f:facet name="header">
+                    <h5>Chefe em destaque</h5>
+                </f:facet>
+                <div class="product-item">
+                    <h:graphicImage name="imagens/#{chef.foto}" />
+                    <h4>#{chef.nome}</h4>
+                </div>
+            </p:carousel>
+        </div>
+    </ui:define>
+
+</ui:composition>

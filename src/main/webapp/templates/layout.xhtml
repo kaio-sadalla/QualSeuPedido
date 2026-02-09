@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+
+<h:head>
+    <meta charset="UTF-8" />
+    <title>SeuChef - <ui:insert name="titulo">Bem-vindo</ui:insert></title>
+    <h:outputStylesheet name="style.css" />
+</h:head>
+
+<h:body>
+    <header id="cabecalho">
+        <p>login</p>
+        <c:choose>
+            <c:when test="#{sessionBean.name==null}">
+                Efetuar o login.
+            </c:when>
+            <c:otherwise>
+                Bem-vindo #{sessionBean.name}!
+            </c:otherwise>>
+        </c:choose>
+    </header>
+
+    <div id="conteudo">
+        <ui:insert name="corpo" />
+    </div>
+
+    <footer id="rodape">
+        <p>2026 - Todos os direitos reservados.</p>
+    </footer>
+</h:body>
+</html>
