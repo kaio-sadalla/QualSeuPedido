@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Perfil #{nome do perfil}</ui:define>
+
+    <ui:define name="envio-avaliacao">
+        <div class="wrapper">
+            <form id="envio-avaliacao">
+                <label for="Nome">
+                    <input type="text" >Digite seu nome</input>
+                </label>
+                <c:choose>
+                    <c:when test="#{view.viewId.endsWith('client')}">
+                        <!-->Tags exclusivas de cliente aqui<-->
+                    </c:when>
+                    <c:otherwise>
+                        <!-->Tags exclusivas de chefe aqui<-->
+                    </c:otherwise>>
+                </c:choose>
+                <input>Cadastrar</input>
+            </form>
+        </div>
+    </ui:define>
+
+</ui:composition>

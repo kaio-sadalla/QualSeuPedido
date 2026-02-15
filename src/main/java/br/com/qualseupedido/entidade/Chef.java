@@ -1,4 +1,4 @@
 package br.com.qualseupedido.entidade;
 
-public class prato {
+public class Chef {
 }

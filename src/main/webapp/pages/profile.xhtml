@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Perfil #{nome do perfil}</ui:define>
+
+    <ui:define name="corpo">
+        <div class="wrapper">
+            <div>
+                <!-- deve-se colocar um background neste campo quando se criar o css -->
+                <img src="#{/**ver o bean aqui**/}" class="profile_pic">#{nome do perfil}</img>
+                <h1>#{nome do perfil}</h1>
+                <div class="rating">
+                    <!-- texto que conterá as estrelas do chef "*" em número conforme a avaliação, precisará do bean-->
+                </div>>
+            </div>>
+
+            <p:dataView var="menu" value="#{/**ver o bean aqui**/}"
+                        rows="6" paginator="true"
+                        rowsPerPageTemplate="6,12,18"
+                        paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        gridIcon="pi pi-th-large" listIcon="pi pi-bars"
+                        layout="grid" styleClass="menus">
+
+                <f:facet name="header">
+                    Cardápio de Opções
+                </f:facet>
+
+                <p:dataViewGridItem>
+                    <p:card style="width: 100%; margin-bottom: 2rem; text-align: center">
+                        <f:facet name="header">
+                            <i class="pi pi-map" style="font-size: 2rem; padding: 1.5rem 0"></i>
+                        </f:facet>
+
+                        <f:facet name="title">
+                            #{menu.nome}
+                        </f:facet>
+
+                        <f:facet name="subtitle">
+                            #{menu.categoria}
+                        </f:facet>
+
+                        <div style="margin: 1rem 0">
+                            <h:outputText value="#{menu.preco}" style="font-weight: bold; font-size: 1.2rem">
+                                <f:convertNumber currencySymbol="R$" type="currency"/>
+                            </h:outputText>
+                        </div>
+
+                        <f:facet name="footer">
+                            <p:commandButton icon="pi pi-shopping-cart" value="Adicionar" styleClass="ui-button-raised" />
+                        </f:facet>
+                    </p:card>
+                </p:dataViewGridItem>
+
+                <p:dataViewListItem>
+                    <div style="display: flex; align-items: center; padding: 1.5rem; border-bottom: 1px solid #eceff1;">
+                        <div style="margin-right: 2rem">
+                            <i class="pi pi-list" style="font-size: 3rem; color: #607d8b"></i>
+                        </div>
+
+                        <div style="flex-grow: 1">
+                            <div style="font-weight: bold; font-size: 1.3rem; margin-bottom: 0.5rem">#{menu.nome}</div>
+                            <div style="color: #78909c; margin-bottom: 0.8rem">#{menu.descricao}</div>
+                            <p:tag value="#{menu.categoria}" severity="warning" />
+                        </div>
+
+                        <div style="text-align: right">
+                            <h:outputText value="#{menu.preco}" style="font-size: 1.6rem; font-weight: bold; display: block; margin-bottom: 0.5rem">
+                                <f:convertNumber currencySymbol="R$" type="currency"/>
+                            </h:outputText>
+                            <p:commandButton icon="pi pi-search" value="Ver Prato" styleClass="ui-button-outlined" />
+                        </div>
+                    </div>
+                </p:dataViewListItem>
+
+            </p:dataView>
+
+            <p:carousel class="highlights" value="#{/*ver o bean aqui*/}" var="#{/*ver o bean aqui*/}" numVisible="3" circular="true">
+                <f:facet name="header">
+                    <h5>Pratos em destaque</h5>
+                </f:facet>
+                <div class="product-item">
+                    <h:graphicImage name="/*ver o bean aqui*/" />
+                    <h4><!--ver o bean aqui--></h4>
+                </div>
+            </p:carousel>
+
+            <p:dataList value="#{/*ver o bean aqui*/}" var="menu"
+                        type="none" paginator="true" rows="5"
+                        styleClass="">
+
+                <ui:include src="../templates/post_layout.xhtml">
+                    <ui:param name="item" value="#{menu}" />
+                </ui:include>
+
+                <ui:insert name="envio-avaliacao" />
+            </p:dataList>
+
+        </div>
+    </ui:define>
+
+</ui:composition>

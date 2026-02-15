@@ -1,4 +1,4 @@
 package br.com.qualseupedido.entidade;
 
-public class pedido {
+public class Dish {
 }
