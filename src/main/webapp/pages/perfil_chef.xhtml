@@ -12,12 +12,12 @@
         <div class="wrapper">
             <div>
                 <!-- deve-se colocar um background neste campo quando se criar o css -->
-                <img src="#{/**ver o bean aqui**/}" class="profile_pic">#{nome do perfil}</img>
+                <img src="#{/**ver o bean aqui**/}" class="profile_pic"/>
                 <h1>#{nome do perfil}</h1>
                 <div class="rating">
                     <!-- texto que conterá as estrelas do chef "*" em número conforme a avaliação, precisará do bean-->
-                </div>>
-            </div>>
+                </div>
+            </div>
 
             <p:dataView var="menu" value="#{/**ver o bean aqui**/}"
                         rows="6" paginator="true"
@@ -33,10 +33,10 @@
                 <p:dataViewGridItem>
                     <p:card style="width: 100%; margin-bottom: 2rem; text-align: center">
                         <f:facet name="header">
-                            <i class="pi pi-map" style="font-size: 2rem; padding: 1.5rem 0"></i>
+                            <i class="pi pi-map" style="font-size: 2rem; padding: 1.5rem 0"/>
                         </f:facet>
 
-                        <f:facet name="title">
+                        <f:facet name="nome">
                             #{menu.nome}
                         </f:facet>
 
@@ -59,7 +59,7 @@
                 <p:dataViewListItem>
                     <div style="display: flex; align-items: center; padding: 1.5rem; border-bottom: 1px solid #eceff1;">
                         <div style="margin-right: 2rem">
-                            <i class="pi pi-list" style="font-size: 3rem; color: #607d8b"></i>
+                            <i class="pi pi-list" style="font-size: 3rem; color: #607d8b"/>
                         </div>
 
                         <div style="flex-grow: 1">
