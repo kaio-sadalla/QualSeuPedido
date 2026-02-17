@@ -15,20 +15,27 @@
 <h:body>
     <header id="cabecalho">
         <h:form id="frmLoginHeader">
-            <c:choose>
-                <c:when test="#{sessionBean.usuarioLogado == null}">
-                    <p:commandButton value="Cadastrar"
-                                     oncomplete="PF('dlgCadastro').show();"
-                                     styleClass="ui-button-secondary"/>
-                    <p:commandButton value="Já tenho uma conta"
-                                     oncomplete="PF('dlgLogin').show();"
-                                     styleClass="ui-button-secondary"/>
-                </c:when>
-                <c:otherwise>
-                    Bem-vindo #{sessionBean.usuarioLogado.nome}!
-                    <p:commandButton value="Sair" action="#{sessionBean.logout}" />
-                </c:otherwise>
-            </c:choose>
+            <h:panelGroup rendered="#{sessionBean.usuarioLogado == null}">
+                <p:commandButton value="Cadastrar"
+                                 oncomplete="PF('dlgCadastro').show();"
+                                 styleClass="ui-button-secondary"
+                                 resetValues="true"
+                                 update=":frmCadastro" />
+                <p:commandButton value="Já tenho uma conta"
+                                 oncomplete="PF('dlgLogin').show();"
+                                 styleClass="ui-button-secondary"
+                                 resetValues="true"
+                                 update=":frmLogin" />
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{sessionBean.usuarioLogado != null}">
+                <h:outputText value="Bem-vindo, #{sessionBean.usuarioLogado.nome}!" style="margin-right: 10px;" />
+
+                <p:commandButton value="Sair"
+                                 action="#{sessionBean.logout}"
+                                 icon="pi pi-power-off"
+                                 styleClass="ui-button-danger" />
+            </h:panelGroup>
         </h:form>
     </header>
 
