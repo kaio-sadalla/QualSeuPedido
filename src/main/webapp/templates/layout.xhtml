@@ -21,7 +21,7 @@
                                      oncomplete="PF('dlgCadastro').show();"
                                      styleClass="ui-button-secondary"/>
                     <p:commandButton value="Já tenho uma conta"
-                                     oncomplete="PF('dlgCadastro').show();"
+                                     oncomplete="PF('dlgLogin').show();"
                                      styleClass="ui-button-secondary"/>
                 </c:when>
                 <c:otherwise>
@@ -40,11 +40,26 @@
         <p>2026 - Todos os direitos reservados.</p>
     </footer>
 
-    <p:dialog header="Bem-vindo ao SeuChef" widgetVar="dlgCadastro" modal="true"
-              height="400" width="500" resizable="false" responsive="true" visible="#{facesContext.validationFailed or not empty facesContext.messageList}">
+    <p:dialog widgetVar="dlgCadastro"
+              header="Novo Cadastro"
+              modal="true"
+              responsive="true"
+              resizable="false">
 
-        <ui:include src="../pages/cadastro.xhtml" />
+        <p:ajax event="close"
+                update=":frmCadastro"
+                listener="#{cadastroBean.limparFormulario}">
 
+            <p:resetInput target=":frmCadastro" />
+
+        </p:ajax>
+
+        <ui:include src="/pages/cadastro.xhtml" />
+
+    </p:dialog>
+
+    <p:dialog widgetVar="dlgLogin" header="Login" modal="true" responsive="true">
+        <ui:include src="/pages/login.xhtml" />
     </p:dialog>
 </h:body>
 </html>

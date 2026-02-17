@@ -10,13 +10,11 @@
 
         <div class="ui-fluid">
 
-            <div class="card" style="text-align: center; margin-bottom: 20px; padding: 20px; background: #f4f4f4; border-radius: 8px;">
+            <div class="card">
                 <h2>Para começar, você quer...</h2>
-
                 <p:selectOneRadio id="tipo" value="#{cadastroBean.tipoUsuario}" unselectable="true">
                     <f:selectItem itemLabel="Contratar Chefs (Cliente)" itemValue="CLIENTE"/>
                     <f:selectItem itemLabel="Cozinhar (Chef)" itemValue="CHEF"/>
-
                     <p:ajax event="change" process="@this" update="@form"/>
                 </p:selectOneRadio>
             </div>
@@ -24,7 +22,7 @@
             <h:panelGroup layout="block" id="areaRestrita" rendered="#{not empty cadastroBean.tipoUsuario}">
 
                 <div class="card">
-                    <h3 style="margin-top:0">Preencha seus dados de #{cadastroBean.tipoUsuario}</h3>
+                    <h3>Preencha seus dados de #{cadastroBean.tipoUsuario}</h3>
 
                     <div class="field">
                         <p:outputLabel for="nome" value="Nome Completo" />
@@ -48,28 +46,38 @@
                                     required="true" feedback="false"/>
                     </div>
 
-                    <div class="field" style="margin: 15px 0;">
+                    <div class="field">
                         <p:outputLabel value="Sua Foto de Perfil" /><br/>
-                        <p:fileUpload value="#{cadastroBean.arquivoFoto}" mode="simple" skinSimple="true" label="Escolher Imagem"/>
+                        <p:fileUpload value="#{cadastroBean.arquivoFoto}"
+                                      mode="simple"
+                                      skinSimple="true"
+                                      accept="image/*"
+                                      sizeLimit="2097152"
+                                      allowTypes="/(\.|\/)(jpe?g|png)$/"
+                                      invalidFileMessage="Apenas JPG ou PNG."
+                                      invalidSizeMessage="A foto deve ter no máximo 2MB."
+                                      label="Escolher Imagem"/>
                     </div>
 
                     <h:panelGroup rendered="#{cadastroBean.tipoUsuario eq 'CHEF'}" layout="block">
-
-                        <p:outputLabel for="especialidade" value="Qual sua especialidade culinária?" />
-                        <p:inputText id="especialidade" value="#{cadastroBean.chefInfo.especialidade}"
-                                     placeholder="Ex: Massas, Sushi, Churrasco..."
-                                     required="#{cadastroBean.tipoUsuario eq 'CHEF'}" />
+                        <div class="field">
+                            <p:outputLabel for="especialidade" value="Qual sua especialidade culinária?" />
+                            <p:inputText id="especialidade" value="#{cadastroBean.chefInfo.especialidade}"
+                                         placeholder="Ex: Massas, Sushi, Churrasco..."
+                                         required="#{cadastroBean.tipoUsuario eq 'CHEF'}" />
+                        </div>
                     </h:panelGroup>
 
-                    <p:separator/>
+                    <p:separator />
 
-                    <p:commandButton value="Finalizar Cadastro"
+                    <p:commandButton id="btnFinalizar"
+                                     value="Finalizar Cadastro de #{cadastroBean.tipoUsuario}"
                                      action="#{cadastroBean.cadastrar}"
-                                     ajax="false"
-                                     validateClient="true"
+                                     process="@form"
+                                     update="@form"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgCadastro').hide()"
                                      icon="pi pi-check"
-                                     styleClass="ui-button-success"
-                                     style="width: 100%; height: 50px; font-size: 1.2em;"/>
+                                     styleClass="ui-button-success"/>
                 </div>
 
             </h:panelGroup>
