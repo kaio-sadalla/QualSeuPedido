@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Perfil #{nome do perfil}</ui:define>
+
+    <ui:define name="envio-avaliacao">
+        <div class="wrapper">
+            <h:form id="formAvaliacao">
+                <h3>Conte-nos como foi o serviço</h3>
+
+                <span class="ui-float-label">
+        <p:inputTextarea id="comentario" value="#{avaliacaoBean.comentario}" rows="3" cols="30"/>
+        <p:outputLabel for="comentario" value="Seu comentário"/>
+    </span>
+
+                <br/>
+                <h:outputText value="Sua nota: " />
+                <p:rating value="#{avaliacaoBean.nota}" />
+
+                <br/><br/>
+                <p:commandButton value="Enviar Avaliação" action="#{avaliacaoBean.salvar}" icon="pi pi-check"/>
+            </h:form>
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="corpo">
+        <div class="wrapper">
+            <h1>Bem-vindo ao SeuChef</h1>
+            <article>
+                <p>A <b>maior plataforma</b> para quem quer contratar um chefe particular 5 estrelas</p>
+                <p>Mais de <b>10000</b> clientes cadastrados.</p>
+                <p>Mais de <b>10000</b> chefs a escolha.</p>
+                <p>Explore opções de prato para sua cerimônia com especialistas!</p>
+            </article>
+
+            <div style="margin: 20px 0;">
+                <p:commandButton value="Divulgar serviços de chef"
+                                 type="button"
+                                 onclick="PF('dlgCadastro').show()"
+                                 styleClass="ui-button-warning"
+                                 style="margin-right: 10px;"/>
+
+                <p:commandButton value="Cadastrar como cliente"
+                                 type="button"
+                                 onclick="PF('dlgCadastro').show()"
+                                 styleClass="ui-button-secondary"/>
+            </div>
+
+            <p:carousel value="#{homeBean.chefsDestaque}" var="chef" numVisible="3" circular="true"
+                        responsive="true" autoPlayInterval="5000">
+
+                <f:facet name="header">
+                    <h5>Chefs em Destaque</h5>
+                </f:facet>
+
+                <div class="product-item" style="text-align: center; padding: 20px; border: 1px solid #ddd; margin: 5px;">
+
+                    <h:panelGroup rendered="#{not empty chef.fotoBase64}">
+                        <img src="data:image/jpeg;base64,#{chef.fotoBase64}"
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%;" />
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{empty chef.fotoBase64}">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3461/3461980.png"
+                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; opacity: 0.5;" />
+                    </h:panelGroup>
+
+                    <div class="product-item-content" style="margin-top: 10px;">
+                        <h4 style="margin-bottom: 5px;">#{chef.nome}</h4>
+                        <span class="product-badge" style="background: #FF9800; color: white; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem;">
+                #{chef.especialidade}
+            </span>
+
+                        <div style="margin-top: 15px;">
+                            <p:commandButton value="Ver Perfil" icon="pi pi-search" styleClass="ui-button-outlined ui-button-secondary" />
+                        </div>
+                    </div>
+                </div>
+
+            </p:carousel>
+        </div>
+    </ui:define>
+
+</ui:composition>

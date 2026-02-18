@@ -1,0 +1,87 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:form id="frmCadastro" enctype="multipart/form-data">
+
+        <p:messages id="msgs" showDetail="true" closable="true"/>
+
+        <div class="ui-fluid">
+
+            <div class="card">
+                <h2>Para começar, você quer...</h2>
+                <p:selectOneRadio id="tipo" value="#{cadastroBean.tipoUsuario}" unselectable="true">
+                    <f:selectItem itemLabel="Contratar Chefs (Cliente)" itemValue="CLIENTE"/>
+                    <f:selectItem itemLabel="Cozinhar (Chef)" itemValue="CHEF"/>
+                    <p:ajax event="change" process="@this" update="@form"/>
+                </p:selectOneRadio>
+            </div>
+
+            <h:panelGroup layout="block" id="areaRestrita" rendered="#{not empty cadastroBean.tipoUsuario}">
+
+                <div class="card">
+                    <h3>Preencha seus dados de #{cadastroBean.tipoUsuario}</h3>
+
+                    <div class="field">
+                        <p:outputLabel for="nome" value="Nome Completo" />
+                        <p:inputText id="nome" value="#{cadastroBean.usuario.nome}" required="true"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="email" value="E-mail" />
+                        <p:inputText id="email" value="#{cadastroBean.usuario.email}" required="true"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="senha" value="Senha" />
+                        <p:password id="senha" value="#{cadastroBean.usuario.senha}"
+                                    required="true" feedback="true" promptLabel="Digite a senha"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel for="confSenha" value="Confirme a Senha" />
+                        <p:password id="confSenha" value="#{cadastroBean.confirmacaoSenha}"
+                                    required="true" feedback="false"/>
+                    </div>
+
+                    <div class="field">
+                        <p:outputLabel value="Sua Foto de Perfil" /><br/>
+                        <p:fileUpload value="#{cadastroBean.arquivoFoto}"
+                                      mode="simple"
+                                      skinSimple="true"
+                                      accept="image/*"
+                                      sizeLimit="2097152"
+                                      allowTypes="/(\.|\/)(jpe?g|png)$/"
+                                      invalidFileMessage="Apenas JPG ou PNG."
+                                      invalidSizeMessage="A foto deve ter no máximo 2MB."
+                                      label="Escolher Imagem"/>
+                    </div>
+
+                    <h:panelGroup rendered="#{cadastroBean.tipoUsuario eq 'CHEF'}" layout="block">
+                        <div class="field">
+                            <p:outputLabel for="especialidade" value="Qual sua especialidade culinária?" />
+                            <p:inputText id="especialidade" value="#{cadastroBean.chefInfo.especialidade}"
+                                         placeholder="Ex: Massas, Sushi, Churrasco..."
+                                         required="#{cadastroBean.tipoUsuario eq 'CHEF'}" />
+                        </div>
+                    </h:panelGroup>
+
+                    <p:separator />
+
+                    <p:commandButton id="btnFinalizar"
+                                     value="Finalizar Cadastro de #{cadastroBean.tipoUsuario}"
+                                     action="#{cadastroBean.cadastrar}"
+                                     process="@form"
+                                     update="@form"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dlgCadastro').hide()"
+                                     icon="pi pi-check"
+                                     styleClass="ui-button-success"/>
+                </div>
+
+            </h:panelGroup>
+
+        </div>
+    </h:form>
+</ui:composition>

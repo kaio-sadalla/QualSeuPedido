@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="../templates/layout.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+<h1>Painel do Chef</h1>
+
+<!-- ====== MENU DO CHEF ====== -->
+<h2>Meu Cardápio</h2>
+
+<h:form>
+    Nome:
+    <h:inputText value="#{pratoBean.nome}" />
+    <br/><br/>
+
+    Descrição:
+    <h:inputText value="#{pratoBean.descricao}" />
+    <br/><br/>
+
+    Preço:
+    <h:inputText value="#{pratoBean.preco}" />
+    <br/><br/>
+
+    <h:commandButton value="Adicionar prato" action="#{pratoBean.adicionarPrato}" />
+</h:form>
+
+<br/>
+
+<h:dataTable value="#{pratoBean.pratos}" var="p" border="1">
+    <h:column>
+        <f:facet name="header">Nome</f:facet>
+        #{p.nome}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Descrição</f:facet>
+        #{p.descricao}
+    </h:column>
+    <h:column>
+        <f:facet name="header">Preço</f:facet>
+        R$ #{p.preco}
+    </h:column>
+</h:dataTable>
+
+<hr/>
+
+<!-- ====== PEDIDOS RECEBIDOS ====== -->
+<h2>Pedidos Recebidos</h2>
+
+<h:form>
+    <h:commandButton value="Atualizar pedidos" />
+    <br/><br/>
+
+    <h:dataTable value="#{pedidoBean.pedidos}" var="ped" border="1">
+
+        <h:column>
+            <f:facet name="header">Descrição</f:facet>
+            #{ped.descricao}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Status</f:facet>
+            #{ped.status}
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">Ações</f:facet>
+            <h:commandButton value="Aceitar" action="#{pedidoBean.aceitarPedido(ped)}" />
+            <h:commandButton value="Recusar" action="#{pedidoBean.recusarPedido(ped)}" />
+        </h:column>
+
+    </h:dataTable>
+</h:form>
+
+</ui:composition>
